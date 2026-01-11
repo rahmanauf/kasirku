@@ -1,0 +1,333 @@
+  :root {
+            --primary-color: #2563eb;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px; /* Ukuran mobile yang nyaman */
+            background: var(--card-bg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #1f2937;
+        }
+
+        .btn-settings {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #6b7280;
+        }
+
+        /* Input Area */
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        /* Input Nama Pelanggan */
+        .customer-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .customer-input:focus {
+            outline: 2px solid var(--primary-color);
+            border-color: transparent;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 10px;
+        }
+
+        select, input, button {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 1rem;
+        }
+
+        select:focus, input:focus {
+            outline: 2px solid var(--primary-color);
+            border-color: transparent;
+        }
+
+        .btn-add {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-add:active {
+            background-color: #1d4ed8;
+        }
+
+        /* Cart List */
+        .cart-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            min-height: 150px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-name {
+            font-weight: 600;
+        }
+
+        .item-price {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-delete {
+            background-color: #fee2e2;
+            color: var(--danger-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Summary & Checkout */
+        .summary {
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .total-row {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 10px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 10px;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(34, 197, 94, 0.2);
+        }
+
+        .btn-checkout:active {
+            transform: translateY(1px);
+        }
+
+        /* Modal Settings */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 12px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+        }
+
+        .product-list-manage {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .product-item-manage {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .btn-close {
+            background: #e5e7eb;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* --- AREA PRINT (Thermal 58mm) --- */
+        #printArea {
+            display: none; /* Sembunyikan di layar normal */
+        }
+
+        @media print {
+            body * {
+                visibility: hidden; /* Sembunyikan elemen body lainnya */
+            }
+            
+            #printArea, #printArea * {
+                visibility: visible; /* Tampilkan area print */
+            }
+
+            #printArea {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 58mm; /* Lebar kertas thermal 58mm */
+                padding: 2mm; /* Padding kecil agar tidak terpotong */
+                margin: 0;
+                font-family: 'Courier New', Courier, monospace; /* Font standar thermal */
+                font-size: 11px;
+                color: black;
+                background: white;
+            }
+
+            /* Style Khusus Struk */
+            .struk-header {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .struk-header h2, .struk-header p {
+                margin: 2px 0;
+                font-size: 11px;
+                font-weight: bold;
+            }
+            .struk-customer {
+                text-align: left;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            .struk-line {
+                border-top: 1px dashed black;
+                margin: 5px 0;
+            }
+            .struk-item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 2px;
+            }
+            .struk-total {
+                text-align: right;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            .struk-footer {
+                text-align: center;
+                margin-top: 15px;
+                font-size: 10px;
+            }
+
+            /* Pengaturan Halaman Chrome */
+            @page {
+                size: 58mm auto; /* Paksa ukuran kertas */
+                margin: 0;       /* Hapus margin bawaan printer */
+            }
+        }
