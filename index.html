@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir Thermal 58mm</title>
+   <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Kasir Asap Pedas X Teko</h1>
+            <button class="btn-settings" onclick="toggleModal()">⚙️</button>
+        </header>
+
+        <!-- Input Transaksi -->
+        <div class="input-section">
+            <!-- Input Nama Pelanggan Baru -->
+            <input type="text" id="customerNameInput" class="customer-input" placeholder="Nama Pelanggan (Opsional)">
+
+            <div class="input-group">
+                <select id="productSelect">
+                    <option value="">-- Pilih Barang --</option>
+                </select>
+                <input type="number" id="qtyInput" placeholder="Jml" value="1" min="1">
+                <button class="btn-add" onclick="addToCart()">+</button>
+            </div>
+        </div>
+
+        <!-- Daftar Belanja -->
+        <div class="cart-list" id="cartList">
+            <!-- Item akan muncul di sini via JS -->
+            <div style="text-align: center; color: #9ca3af; padding: 20px;">
+                Keranjang kosong
+            </div>
+        </div>
+
+        <!-- Ringkasan Total -->
+        <div class="summary">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subTotal">Rp 0</span>
+            </div>
+            <div class="total-row summary-row">
+                <span>Total</span>
+                <span id="grandTotal">Rp 0</span>
+            </div>
+        </div>
+
+        <button class="btn-checkout" onclick="printReceipt()">CETAK</button>
+    </div>
+
+    <!-- Modal Manajemen Barang -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Kelola Barang</h3>
+                <button class="btn-close" onclick="toggleModal()">X</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Nama Barang Baru</label>
+                <input type="text" id="newProductName" placeholder="Contoh: Nasi Goreng">
+            </div>
+            <div class="form-group">
+                <label>Harga (Rp)</label>
+                <input type="number" id="newProductPrice" placeholder="Contoh: 15000">
+            </div>
+            <button class="btn-add" style="width: 100%" onclick="addNewProduct()">Simpan Barang</button>
+
+            <ul class="product-list-manage" id="manageProductList">
+                <!-- List produk untuk dihapus/edit -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Area Tersembunyi untuk Print -->
+    <div id="printArea">
+        <div class="struk-header">
+            <h2>Asap Pedas X Teko</h2>
+            <p>Jl. Simpang Kamboja</p>
+         <p id="printDate">Tanggal: -</p>
+        </div>
+        
+        <!-- Tambahan: Nama Pelanggan di Struk -->
+        <div class="struk-customer" id="printCustomerName">Pelanggan: -</div>
+        
+        <div class="struk-line"></div>
+        <div id="printItems">
+            <!-- Item struk di-generate JS -->
+        </div>
+        <div class="struk-line"></div>
+        <div class="struk-total">
+            <p>Total: <span id="printTotal">Rp 0</span></p>
+        </div>
+        <div class="struk-line"></div>
+        <div class="struk-footer">
+                <p>Terima Kasih atas Pesanan Anda</p>
+            <p>Selamat Menikmati</p>
+        </div>
+    </div>
+
+   <script src="js/main.js"></script>
+</body>
+</html>
