@@ -281,7 +281,7 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 58mm; /* Lebar kertas thermal 58mm */
+                width: 100%; /* Lebar kertas thermal 58mm */
                 padding: 2mm; /* Padding kecil agar tidak terpotong */
                 margin: 0;
                 font-family: 'Courier New', Courier, monospace; /* Font standar thermal */
