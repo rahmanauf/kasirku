@@ -3,8 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir Thermal 58mm</title>
-   <link rel="stylesheet" href="style.css">
+    <title>Kasir Asap Pedas X Teko</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h1 { margin: 0; font-size: 1.25rem; color: #1f2937; }
+        .btn-settings { background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #6b7280; }
+
+        /* Category Tabs (Scrollable Horizontal) */
+        .category-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .category-container::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+
+        .cat-tab {
+            white-space: nowrap;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            color: #4b5563;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .cat-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Input Area */
+        .input-section { margin-bottom: 20px; }
+        
+        .customer-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .customer-input:focus { outline: 2px solid var(--primary-color); border-color: transparent; }
+
+
+#productSelect {width: 100%;}
+
+        .input-group {  gap: 10px; margin-bottom: 10px; width: 100%;}
+  .input-group2 {    gap: 15px;  margin-bottom: 10px;width: 100%;}
+        
+        select, input, button {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 1rem;
+        }
+
+        select:focus, input:focus { outline: 2px solid var(--primary-color); border-color: transparent; }
+
+        .btn-add { background-color: var(--primary-color); color: white; border: none; font-weight: bold; cursor: pointer; }
+        .btn-add:active { background-color: #1d4ed8; }
+
+        /* Cart List */
+        .cart-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            min-height: 150px;
+        }
+
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #f3f4f6; }
+        .cart-item:last-child { border-bottom: none; }
+        .item-info { display: flex; flex-direction: column; }
+        .item-name { font-weight: 600; }
+        .item-price { font-size: 0.85rem; color: #6b7280; }
+        .item-actions { display: flex; align-items: center; gap: 10px; }
+        
+        .btn-delete {
+            background-color: #fee2e2; color: var(--danger-color); border: none;
+            padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+        }
+
+        /* Summary & Checkout */
+        .summary { background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .total-row { font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; }
+        
+        .btn-checkout {
+            width: 100%; background-color: var(--success-color); color: white;
+            padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem;
+            font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(34, 197, 94, 0.2);
+        }
+        .btn-checkout:active { transform: translateY(1px); }
+
+        /* Modal Settings */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content {
+            background: white; width: 90%; max-width: 400px; padding: 20px;
+            border-radius: 12px; max-height: 80vh; overflow-y: auto;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input, .form-group select { width: 100%; }
+        
+        .product-list-manage { list-style: none; padding: 0; margin-top: 15px; border-top: 1px solid #eee; }
+        .product-item-manage { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-size: 0.9rem; }
+        .item-cat-badge { display: block; font-size: 0.8rem; color: #6b7280; }
+
+        .btn-close { background: #e5e7eb; border: none; padding: 5px 15px; border-radius: 6px; cursor: pointer; }
+
+        /* --- AREA PRINT --- */
+        #printArea { display: none; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #printArea, #printArea * { visibility: visible; }
+            #printArea {
+                display: block; position: absolute; left: 0; top: 0; width: 100%;
+                padding: 2mm; margin: 0; font-family: 'Courier New', Courier, monospace;
+                font-size: 11px; color: black; background: white;
+            }
+            .struk-header { text-align: center; margin-bottom: 10px; }
+            .struk-header h2, .struk-header p { margin: 2px 0; font-size: 11px; font-weight: bold; }
+            .struk-customer { text-align: left; margin-bottom: 5px; font-weight: bold; }
+            .struk-line { border-top: 1px dashed black; margin: 5px 0; }
+            .struk-item { display: flex; justify-content: space-between; margin-bottom: 2px; }
+            .struk-total { text-align: right; font-weight: bold; margin-top: 5px; }
+            .struk-footer { text-align: center; margin-top: 15px; font-size: 10px; }
+            @page { size: 58mm auto; margin: 0; }
+        }
+    </style>
 </head>
 <body>
 
@@ -16,92 +194,403 @@
 
         <!-- Input Transaksi -->
         <div class="input-section">
-            <!-- Input Nama Pelanggan Baru -->
             <input type="text" id="customerNameInput" class="customer-input" placeholder="Nama Pelanggan (Opsional)">
 
+            <!-- TAB KATEGORI -->
+            <div class="category-container" id="categoryTabs">
+                <!-- Tab Kategori akan di-generate JS -->
+            </div>
+
             <div class="input-group">
+                
                 <select id="productSelect">
                     <option value="">-- Pilih Barang --</option>
                 </select>
-                <input type="number" id="qtyInput" placeholder="Jml" value="1" min="1">
+            </div>
+
+
+ <div class="input-group2">
+                              <input type="number" id="qtyInput" placeholder="Jml" value="1" min="1">
                 <button class="btn-add" onclick="addToCart()">+</button>
             </div>
+
+
         </div>
 
         <!-- Daftar Belanja -->
         <div class="cart-list" id="cartList">
-            <!-- Item akan muncul di sini via JS -->
-            <div style="text-align: center; color: #9ca3af; padding: 20px;">
-                Keranjang kosong
-            </div>
+            <div style="text-align: center; color: #9ca3af; padding: 20px;">Keranjang kosong</div>
         </div>
 
         <!-- Ringkasan Total -->
         <div class="summary">
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="subTotal">Rp 0</span>
-            </div>
-            <div class="total-row summary-row">
-                <span>Total</span>
-                <span id="grandTotal">Rp 0</span>
-            </div>
+            <div class="summary-row"><span>Subtotal</span><span id="subTotal">Rp 0</span></div>
+            <div class="total-row summary-row"><span>Total</span><span id="grandTotal">Rp 0</span></div>
         </div>
 
-        <button class="btn-checkout" onclick="printReceipt()">CETAK</button>
+        <button class="btn-checkout" onclick="printReceipt()">CETAK & BAYAR</button>
     </div>
 
     <!-- Modal Manajemen Barang -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Kelola Barang</h3>
+                <h3>Tambah Barang Baru</h3>
                 <button class="btn-close" onclick="toggleModal()">X</button>
             </div>
             
             <div class="form-group">
-                <label>Nama Barang Baru</label>
+                <label>Nama Barang</label>
                 <input type="text" id="newProductName" placeholder="Contoh: Nasi Goreng">
             </div>
             <div class="form-group">
                 <label>Harga (Rp)</label>
                 <input type="number" id="newProductPrice" placeholder="Contoh: 15000">
             </div>
+            <div class="form-group">
+                <label>Kategori</label>
+                <select id="newProductCategory">
+                    <!-- Opsi Kategori di-generate JS -->
+                </select>
+            </div>
             <button class="btn-add" style="width: 100%" onclick="addNewProduct()">Simpan Barang</button>
 
-            <ul class="product-list-manage" id="manageProductList">
-                <!-- List produk untuk dihapus/edit -->
-            </ul>
+            <div style="margin-top: 20px; font-weight: bold;">Daftar Barang:</div>
+            <ul class="product-list-manage" id="manageProductList"></ul>
         </div>
     </div>
 
-    <!-- Area Tersembunyi untuk Print -->
+    <!-- Area Print -->
     <div id="printArea">
         <div class="struk-header">
             <h2>Asap Pedas X Teko</h2>
             <p>Jl. Simpang Kamboja</p>
-         <p id="printDate">Tanggal: -</p>
+            <p id="printDate">Tanggal: -</p>
         </div>
-        
-        <!-- Tambahan: Nama Pelanggan di Struk -->
         <div class="struk-customer" id="printCustomerName">Pelanggan: -</div>
-        
         <div class="struk-line"></div>
-        <div id="printItems">
-            <!-- Item struk di-generate JS -->
-        </div>
+        <div id="printItems"></div>
         <div class="struk-line"></div>
-        <div class="struk-total">
-            <p>Total: <span id="printTotal">Rp 0</span></p>
-        </div>
+        <div class="struk-total"><p>Total: <span id="printTotal">Rp 0</span></p></div>
         <div class="struk-line"></div>
         <div class="struk-footer">
-                <p>Terima Kasih atas Pesanan Anda</p>
+                   <p>Terima Kasih atas Pesanan Anda</p>
             <p>Selamat Menikmati</p>
         </div>
     </div>
 
-   <script src="main.js"></script>
-</body>
+    <script>
+        // --- DATA & KONFIGURASI ---
+        // Kategori Default
+        const categories = ['Nasi', 'Minuman', 'Snack', 'Lauk'];
+        
+        // Data Produk (dengan properti category)	
+        let products = [
+        
 
+{ id: 1 ,name: ' Nasi Ayam Kipas ', price: 15000 , category: 'Nasi' },
+{ id: 2 ,name: ' Nasi Ayam Kipas Serundeng ', price: 15000 , category: 'Nasi' },
+{ id: 3 ,name: ' Nasi Udang Selimut ', price: 15000 , category: 'Nasi' },
+{ id: 4 ,name: ' Nasi Cumi Calamari ', price: 15000 , category: 'Nasi' },
+{ id: 5 ,name: ' Nasi Chicken Katsu Barbeque ', price: 15000 , category: 'Nasi' },
+{ id: 6 ,name: ' Nasi Chicken Katsu Lada Hitam ', price: 15000 , category: 'Nasi' },
+{ id: 7 ,name: ' Nasi Chicken karage sambal ijo ', price: 15000 , category: 'Nasi' },
+{ id: 8 ,name: ' Nasi Sayap Spacy ', price: 15000 , category: 'Nasi' },
+{ id: 9 ,name: ' Nasi Telur Dadar ', price: 10000 , category: 'Nasi' },
+{ id: 10 ,name: ' Nasi Usus ', price: 12000 , category: 'Nasi' }, 
+{ id: 11 ,name: ' Es Teh Original ', price: 4000 , category: 'Minuman' },
+{ id: 12 ,name: ' Es Teh Leci ', price: 7000 , category: 'Minuman' },
+{ id: 13 ,name: ' Es Teh Melon ', price: 7000 , category: 'Minuman' },
+{ id: 14 ,name: ' Es Teh Lemon ', price: 7000 , category: 'Minuman' },
+{ id: 15 ,name: ' Milk Tea ', price: 8000 , category: 'Minuman' },
+{ id: 16 ,name: ' Milk Tea Strawberry ', price: 8000 , category: 'Minuman' },
+{ id: 17 ,name: ' Milk Tea Melon ', price: 8000 , category: 'Minuman' },
+{ id: 18 ,name: ' Durian Milk ', price: 7000 , category: 'Minuman' },
+{ id: 19 ,name: ' Strawberry Milk ', price: 7000 , category: 'Minuman' },
+{ id: 20 ,name: ' Melon Milk ', price: 7000 , category: 'Minuman' },
+{ id: 21 ,name: ' Grape Milk ', price: 7000 , category: 'Minuman' },
+{ id: 22 ,name: ' Mango Milk ', price: 7000 , category: 'Minuman' },
+{ id: 23 ,name: ' Chocolate Milk ', price: 7000 , category: 'Minuman' },
+{ id: 24 ,name: ' Coffee Latte ', price: 10000 , category: 'Minuman' },
+{ id: 25 ,name: ' Coffee latte brown sugar ', price: 12000 , category: 'Minuman' },
+{ id: 26 ,name: ' Ceker Pedas ', price: 10000 , category: 'Snack' },
+{ id: 27 ,name: ' Ceker Pedas Manis ', price: 10000 , category: 'Snack' },
+{ id: 28 ,name: ' Pempek ', price: 12000 , category: 'Snack' },
+{ id: 29 ,name: ' Kentang ', price: 10000 , category: 'Snack' },
+{ id: 30 ,name: ' Kentang Chicken Katsu Barbeque ', price: 15000 , category: 'Snack' },
+{ id: 31 ,name: ' Kentang Chicken Katsu Lada Hitam ', price: 15000 , category: 'Snack' },
+{ id: 32 ,name: ' Ayam Kipas ', price: 10000 , category: 'Lauk' },
+{ id: 33 ,name: ' Ayam Kipas Serundeng ', price: 10000 , category: 'Lauk' },
+{ id: 34 ,name: ' Udang Selimut ', price: 10000 , category: 'Lauk' },
+{ id: 35 ,name: ' Cumi Calamari ', price: 10000 , category: 'Lauk' },
+{ id: 36 ,name: ' Chicken Katsu Barbeque ', price: 10000 , category: 'Lauk' },
+{ id: 37 ,name: ' Chicken Katsu Lada Hitam ', price: 10000 , category: 'Lauk' },
+{ id: 38 ,name: ' Chicken karage sambal ijo ', price: 10000 , category: 'Lauk' },
+{ id: 39 ,name: ' Sayap Spacy ', price: 10000 , category: 'Lauk' },
+{ id: 40 ,name: ' Telur Dadar ', price: 5000 , category: 'Lauk' },
+{ id: 41 ,name: ' Usus ', price: 10000 , category: 'Lauk' },
+{ id: 42 ,name: ' Ayam Kipas - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 43 ,name: ' Ayam Kipas Serundeng - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 44 ,name: ' Udang Selimut - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 45 ,name: ' Cumi Calamari - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 46 ,name: ' Chicken Katsu Barbeque - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 47 ,name: ' Chicken Katsu Lada Hitam - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 48 ,name: ' Chicken karage sambal ijo - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 49 ,name: ' Sayap Spacy - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 50 ,name: ' Usus - Losmen ', price: 12000 , category: 'Lauk' },
+{ id: 51 ,name: ' Nasi Putih ', price: 5000 , category: 'Nasi' }
+
+        ];
+
+        let cart = [];
+        let activeCategory = 'Semua'; // Kategori yang sedang aktif
+
+        // Format Rupiah
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency', currency: 'IDR', minimumFractionDigits: 0
+            }).format(number);
+        };
+
+        // --- INISIALISASI ---
+        window.onload = () => {
+            renderCategories();
+            loadProducts();
+            renderCategoryOptionsInModal();
+        };
+
+        // --- FUNGSI KATEGORI ---
+        
+        // 1. Render Tab Kategori di Halaman Utama
+        function renderCategories() {
+            const container = document.getElementById('categoryTabs');
+            container.innerHTML = '';
+
+            // Tambah tombol "Semua"
+            const allBtn = document.createElement('button');
+            allBtn.className = `cat-tab ${activeCategory === 'Semua' ? 'active' : ''}`;
+            allBtn.textContent = 'Semua';
+            allBtn.onclick = () => setCategory('Semua');
+            container.appendChild(allBtn);
+
+            // Loop kategori lain
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `cat-tab ${activeCategory === cat ? 'active' : ''}`;
+                btn.textContent = cat;
+                btn.onclick = () => setCategory(cat);
+                container.appendChild(btn);
+            });
+        }
+
+        // 2. Set Kategori Aktif & Filter Produk
+        function setCategory(catName) {
+            activeCategory = catName;
+            renderCategories(); // Update tampilan tombol active
+            loadProducts();     // Reload dropdown barang
+            
+            // Reset pilihan dropdown agar tidak bingung
+            document.getElementById('productSelect').selectedIndex = 0;
+        }
+
+        // 3. Render Opsi Kategori di Modal Tambah Barang
+        function renderCategoryOptionsInModal() {
+            const select = document.getElementById('newProductCategory');
+            select.innerHTML = '';
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                select.appendChild(opt);
+            });
+        }
+
+        // --- FUNGSI PRODUK ---
+
+        function loadProducts() {
+            const select = document.getElementById('productSelect');
+            const manageList = document.getElementById('manageProductList');
+            
+            select.innerHTML = '<option value="">-- Pilih Barang --</option>';
+            manageList.innerHTML = '';
+
+            // Filter produk berdasarkan kategori aktif
+            const filteredProducts = activeCategory === 'Semua' 
+                ? products 
+                : products.filter(p => p.category === activeCategory);
+
+            // Isi Dropdown Utama
+            filteredProducts.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.text = `${p.name} - ${formatRupiah(p.price)}`;
+                select.appendChild(option);
+            });
+
+            // Isi List Manage (Tampilkan SEMUA produk di list bawah modal, agar bisa dikelola)
+            products.forEach(p => {
+                const li = document.createElement('li');
+                li.className = 'product-item-manage';
+                li.innerHTML = `
+                    <div>
+                        <strong>${p.name}</strong>
+                        <span class="item-cat-badge">${p.category} - ${formatRupiah(p.price)}</span>
+                    </div>
+                    <button class="btn-delete" onclick="deleteProduct(${p.id})">Hapus</button>
+                `;
+                manageList.appendChild(li);
+            });
+        }
+
+        // --- FUNGSI KERANJANG (Cart) ---
+
+        function addToCart() {
+            const select = document.getElementById('productSelect');
+            const qtyInput = document.getElementById('qtyInput');
+            
+            const id = parseInt(select.value);
+            const qty = parseInt(qtyInput.value);
+
+            if (!id || qty < 1) {
+                alert("Pilih barang dan masukkan jumlah yang benar.");
+                return;
+            }
+
+            const product = products.find(p => p.id === id);
+            const existingItem = cart.find(c => c.id === id);
+
+            if (existingItem) {
+                existingItem.qty += qty;
+                existingItem.total = existingItem.qty * existingItem.price;
+            } else {
+                cart.push({
+                    id: product.id, name: product.name, price: product.price,
+                    qty: qty, total: product.price * qty
+                });
+            }
+
+            qtyInput.value = 1;
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartListEl = document.getElementById('cartList');
+            const subTotalEl = document.getElementById('subTotal');
+            const grandTotalEl = document.getElementById('grandTotal');
+            
+            cartListEl.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartListEl.innerHTML = '<div style="text-align: center; color: #9ca3af; padding: 20px;">Keranjang kosong</div>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.total;
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <div class="item-info">
+                            <span class="item-name">${item.name}</span>
+                            <span class="item-price">${formatRupiah(item.price)} x ${item.qty}</span>
+                        </div>
+                        <div class="item-actions">
+                            <strong>${formatRupiah(item.total)}</strong>
+                            <button class="btn-delete" onclick="removeFromCart(${index})">🗑️</button>
+                        </div>
+                    `;
+                    cartListEl.appendChild(div);
+                });
+            }
+
+            subTotalEl.textContent = formatRupiah(total);
+            grandTotalEl.textContent = formatRupiah(total);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        // --- MANAJEMEN BARANG (Modal) ---
+
+        function toggleModal() {
+            const modal = document.getElementById('settingsModal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function addNewProduct() {
+            const nameInput = document.getElementById('newProductName');
+            const priceInput = document.getElementById('newProductPrice');
+            const catInput = document.getElementById('newProductCategory');
+            
+            const name = nameInput.value.trim();
+            const price = parseInt(priceInput.value);
+            const category = catInput.value;
+
+            if (!name || !price) {
+                alert("Nama, Harga, dan Kategori harus diisi!");
+                return;
+            }
+
+            const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+            
+            products.push({ id: newId, name: name, price: price, category: category });
+            
+            nameInput.value = '';
+            priceInput.value = '';
+            
+            // Refresh tampilan
+            loadProducts();
+            renderCategories(); // Refresh tab jika kategori baru ditambahkan (di sini kategori statis di array, tapi konsepnya sama)
+            
+            alert("Barang berhasil ditambahkan!");
+        }
+
+        function deleteProduct(id) {
+            if(confirm("Yakin ingin menghapus barang ini?")) {
+                products = products.filter(p => p.id !== id);
+                loadProducts();
+            }
+        }
+
+        // --- PRINT ---
+
+        function printReceipt() {
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong!");
+                return;
+            }
+
+            const customerNameInput = document.getElementById('customerNameInput');
+            const customerName = customerNameInput.value.trim() || "Umum";
+            document.getElementById('printCustomerName').textContent = "Pelanggan: " + customerName;
+
+            const printItems = document.getElementById('printItems');
+            const printTotal = document.getElementById('printTotal');
+            const printDate = document.getElementById('printDate');
+            
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                html += `
+                    <div class="struk-item">
+                        <span>${item.name} x${item.qty}</span>
+                        <span>${formatRupiah(item.total)}</span>
+                    </div>
+                `;
+                total += item.total;
+            });
+	
+            printItems.innerHTML = html;
+            printTotal.textContent = formatRupiah(total);
+            
+            const now = new Date();
+            printDate.textContent = now.toLocaleDateString('id-ID') + ' ' + now.toLocaleTimeString('id-ID');
+
+            window.print();
+        }
+
+    </script>
+</body>
 </html>
